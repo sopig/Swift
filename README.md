@@ -1,6 +1,9 @@
 The story of my swift adventure
 ==========
 
+第一部分 Markdown
+-----------------
+
 ####Markdown标记语法 
 >1.Markdown语法非常简单易读易写，建议以后写txt文档时候采用Markdown，这里是[Markdown](http://wowubuntu.com/markdown/)详细说明;  
 
