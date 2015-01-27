@@ -7,6 +7,7 @@ The story of my swift adventure
 >2.MAC上非常好用的Markdown编辑器叫做Mou，这里[Mou](http://25.io/mou/)官方地址，有详细的文档和说明。
 
 ####基本语法总结
+```
 **语法参考**
 # Mou
 
@@ -244,4 +245,4 @@ Don't forget to check Preferences, lots of useful options are there.
 Follow [@Mou](https://twitter.com/mou) on Twitter for the latest news.
 
 For feedback, use the menu `Help` - `Send Feedback`
-
+```
