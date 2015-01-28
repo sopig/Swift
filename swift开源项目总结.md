@@ -15,5 +15,5 @@
 ####工具类
 项目	         | 开发者         | 备注
 ------------ | ------------- | ------------
-[SwiftJson](https://github.com/SwiftyJSON/SwiftyJSON) | Content Cell  | Content Cell
+[SwiftJson](https://github.com/SwiftyJSON/SwiftyJSON) | [Tang](https://github.com/tangplin)[lingoer](https://github.com/lingoer)  | GitHub 上最为开发者认可的 JSON 解析类
 Content Cell | Content Cell  | Content Cell
