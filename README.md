@@ -12,10 +12,10 @@ The story of my swift adventure
 
 #####3.Markdown详细语法说明 [Markdown](https://github.com/ddapps/Swift/blob/master/Markdown%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93.md)
 
-第二部分 Swift开源项目总结
+第二部分 Swift开源项目及使用注意点
 ----------------
 ####swift开源项目总结，持续更新
-swift开源项目包含
+swift开源项目包含  
 1.存储类  
 2.网络类  
 3.图片类  
