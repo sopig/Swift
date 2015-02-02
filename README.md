@@ -46,6 +46,13 @@ swift 里面调用 OC 类 新建一个.h 文件，在.h 文件里 import “”�
  选中targets->build settings ->SwiftCompiler ->Objective-C bridging header
  将这个头文件名称填入即可。
 ```
+
+`Attention :  
+	Swift的nil和OC的nil并不一样。在OC中，nil是一个指向不存在对象的指针。  
+	在Swift中，nil不是指针，nil是一个确定的值，用来表示值缺失。任何类型的  
+	可选都可以被设置为nil，不只是对象类型。`
+
+
 [Swift 十二讲 前言和第一章(draft)](http://www.jianshu.com/p/f875bcb7e86c?utm_campaign=maleskine&utm_content=note&utm_medium=pc_author_hots&utm_source=recommendation)  
 [Swift 十二讲 第二章 常量变量类型元组字符串和操作符](http://www.jianshu.com/p/b4a202d6c77b?utm_campaign=maleskine&utm_content=note&utm_medium=pc_author_hots&utm_source=recommendation)  
 [Swift十二讲 第三章 数组字典函数和闭包](http://www.jianshu.com/p/94212e7f4030?utm_campaign=maleskine&utm_content=note&utm_medium=pc_author_hots&utm_source=recommendation)
