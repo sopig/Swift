@@ -46,11 +46,17 @@ swift 里面调用 OC 类 新建一个.h 文件，在.h 文件里 import “”�
  选中targets->build settings ->SwiftCompiler ->Objective-C bridging header
  将这个头文件名称填入即可。
 ```
-
-`Attention :  
+####swift和OC中nil的区别
+`Attention :`
+  
 	Swift的nil和OC的nil并不一样。在OC中，nil是一个指向不存在对象的指针。  
 	在Swift中，nil不是指针，nil是一个确定的值，用来表示值缺失。任何类型的  
 	可选都可以被设置为nil，不只是对象类型。`
+
+####swift精选TIPS
+[在Swift中应用Grand Central Dispatch(上)](http://www.cocoachina.com/swift/20150129/11057.html?utm_source=tuicool)  
+[在Swift中应用Grand Central Dispatch(下)](http://www.cocoachina.com/swift/20150130/11054.html)  
+
 
 
 [Swift 十二讲 前言和第一章(draft)](http://www.jianshu.com/p/f875bcb7e86c?utm_campaign=maleskine&utm_content=note&utm_medium=pc_author_hots&utm_source=recommendation)  
