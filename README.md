@@ -15,14 +15,6 @@ The story of my swift adventure
 第二部分 Swift开源项目及使用注意点
 ----------------
 ####swift开源项目总结，持续更新
-swift开源项目包含  
-1.存储类  
-2.网络类  
-3.图片类  
-4.界面类  
-5.框架类  
-
-
 这里是保持持续更新的开源框架总结[Swift开源项目总结](https://github.com/ddapps/Swift/blob/master/swift%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93.md)   
 
 第三部分 swift笔记，
@@ -96,7 +88,7 @@ swift 里面调用 OC 类 新建一个.h 文件，在.h 文件里 import “”�
 	hasPrefix/hasSuffix方法来检查字符串是否拥有特定的前缀、后缀  
 	你还可以通过字符串的uppercaseString和lowercaseString属性来访问一个字符串的大写小写版本  
 	
-`数组够早语句`
+`数组构造语句`
 
 	[1,2,3];   
 	var shoplist:Array<Int> = [1,2,3,4];   
@@ -165,7 +157,6 @@ swift 里面调用 OC 类 新建一个.h 文件，在.h 文件里 import “”�
 ####swift精选TIPS
 [在Swift中应用Grand Central Dispatch(上)](http://www.cocoachina.com/swift/20150129/11057.html?utm_source=tuicool)  
 [在Swift中应用Grand Central Dispatch(下)](http://www.cocoachina.com/swift/20150130/11054.html)  
-
 
 
 [Swift 十二讲 前言和第一章(draft)](http://www.jianshu.com/p/f875bcb7e86c?utm_campaign=maleskine&utm_content=note&utm_medium=pc_author_hots&utm_source=recommendation)  
