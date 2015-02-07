@@ -147,9 +147,48 @@ swift 里面调用 OC 类 新建一个.h 文件，在.h 文件里 import “”�
 
 	注意：在我们不需要改变数组大小的时候创建不可变数组是很好的习惯。如此，编译器可以优化我们创建的集合
 	
+`函数`  
 
-	
-
+	* 多重返回值函数：可以将所有数据组织好，然后一元组的方式返回。  
+	* 函数的外部参数名：  
+	func join(string s1: String, toString s2: String, withJoiner joiner: String) -> String {
+    return s1 + joiner + s2  
+	}  
+	* 也可以采用#简写外部参数名：  
+	func containsCharacter(#string: String, characterToFind: Character) -> Bool {
+        return false
+	}  
+	* 可变参数  
+	func arithmeticMean(numbers: Double...) -> Double {
+    var total: Double = 0
+    for number in numbers {
+        total += number
+    }
+    return total / Double(numbers.count)
+	}
+	* 输入输出参数  
+	定义一个输入输出参数时，在参数定义前加 inout 关键字。一个输入输出参数有传入函数的值，这个值被函数修改，然后被传出函数，替换原来的值。  
+	func swapTwoInts(inout a: Int, inout b: Int) {
+    let temporaryA = a
+    a = b
+    b = temporaryA
+	}
+	* 函数类型作为参数类型  
+	* 函数类型作为返回类型  
+	* 嵌套函数  
+	func chooseStepFunction(backwards: Bool) -> (Int) -> Int {
+    func stepForward(input: Int) -> Int { return input + 1 }
+    func stepBackward(input: Int) -> Int { return input - 1 }
+    return backwards ? stepBackward : stepForward
+	}
+	var currentValue = -4
+	let moveNearerToZero = chooseStepFunction(currentValue < 0)
+		// moveNearerToZero now refers to the nested stepForward() function
+	while currentValue != 0 {
+    println("\(currentValue)... ")
+    currentValue = moveNearerToZero(currentValue)
+	}
+	println("zero!")
 
 ####swift官方文档
  [The Swift Programming Language 中文版](http://numbbbbb.gitbooks.io/-the-swift-programming-language-/content/index.html)  
