@@ -190,6 +190,12 @@ swift 里面调用 OC 类 新建一个.h 文件，在.h 文件里 import “”�
 	}
 	println("zero!")
 
+* 指针,一个swift敞亮或者变量引用一个引用类型的实例与C语言中的指针类似，不同的是并不直接指向内存中的某个地址。  
+* 类和结构体的选择，在你的代码中可以使用类和结构体来定义你的自定义数据类型。  
+  `结构体`实例总是通过值传递，`类`总是通过引用传递。  
+* 值类型和引用类型的区别。  
+
+
 ####swift官方文档
  [The Swift Programming Language 中文版](http://numbbbbb.gitbooks.io/-the-swift-programming-language-/content/index.html)  
 
