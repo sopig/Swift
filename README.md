@@ -206,6 +206,13 @@ swift 里面调用 OC 类 新建一个.h 文件，在.h 文件里 import “”�
 * 强制复制数组   
 我们通过调用数组的copy方法进行强制显性复制。这个方法对数组进行了浅拷贝，并且返回一个包含此拷贝的新数组。  
 注意：如果你仅需要确保你对数组的引用是唯一引用，请调用unshare方法，而不是copy方法，unshare方法仅仅会在确有必要时才会创建数组拷贝。copy方法会在任何时候都创建一个新的拷贝，即使引用已经是唯一引用。
+* **属性**  
+属性分为计算属性和存储属性。  
+计算属性可以用于类、结构体和枚举里，存储属性只能用于类和结构体  
+  
+存储属性  
+
+
 
 ####swift官方文档
  [The Swift Programming Language 中文版](http://numbbbbb.gitbooks.io/-the-swift-programming-language-/content/index.html)  
