@@ -19,10 +19,11 @@ The story of my swift adventure
 
 第三部分 swift笔记，
 -------------
-####swift与OC混合编程 swift和OC相互桥接的设置
+####swift与OC混合编程 
+`swift和OC相互桥接的设置`
+
 ```
 swift和oc混合编程
-a project with swift&oc mixed
 
 OC类里面调用 swift 类 
 选中targets->build settings ->packing->Product Module Name
@@ -38,7 +39,10 @@ swift 里面调用 OC 类 新建一个.h 文件，在.h 文件里 import “”�
  选中targets->build settings ->SwiftCompiler ->Objective-C bridging header
  将这个头文件名称填入即可。
 ```
-####swift和OC中nil的区别
+ 
+ 
+ swift和OC中nil的区别  
+
 `Attention :`
   
 	Swift的nil和OC的nil并不一样。在OC中，nil是一个指向不存在对象的指针。  
