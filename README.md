@@ -221,6 +221,7 @@ swift 里面调用 OC 类 新建一个.h 文件，在.h 文件里 import “”�
 * **全局变量和局部变量**   
  `全局的常量和变量都是延迟计算的，跟延迟存储属性类似，不同的地方在于，全局的变量和常量不需要标记@lazy特性；局部范围的常量或变量不会延迟计算` 
 * **类型属性【就是类属性，不用实例化的属性】**   
+ `在C和OC中，静态常量和静态变量的定义是通过特定类型加上global关键字，在swift编程语言中，类型属性是最为类型定义的一部分卸载类型最外层的花括号内，因此它的作用范围也就在类型支持的范围内`  
 
 ####swift官方文档
  [The Swift Programming Language 中文版](http://numbbbbb.gitbooks.io/-the-swift-programming-language-/content/index.html)  
