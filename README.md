@@ -226,6 +226,9 @@ swift 里面调用 OC 类 新建一个.h 文件，在.h 文件里 import “”�
 ####swift官方文档
  [The Swift Programming Language 中文版](http://numbbbbb.gitbooks.io/-the-swift-programming-language-/content/index.html)  
 
+####swift项目依赖管理[Carthage](https://github.com/Carthage/Carthage)  
+* [Carthage使用](http://www.isaced.com/post-265.html)  
+
 ####swift精选TIPS
 [在Swift中应用Grand Central Dispatch(上)](http://www.cocoachina.com/swift/20150129/11057.html?utm_source=tuicool)  
 [在Swift中应用Grand Central Dispatch(下)](http://www.cocoachina.com/swift/20150130/11054.html)  
