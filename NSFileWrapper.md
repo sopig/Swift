@@ -1,3 +1,5 @@
+Store Multiple Types of Data in a Single File Using NSFileWrapper in iOS  
+========================================================================
 In many iOS application development projects, we have requirement to store the data. We can store it in many ways, like in database or as a file storage in a document file. And if we have multiple types of data like text and image, we are storing them as different entities.
 
 But can we store them as a single file? Yes, we can and here comes the NSFileWrapper to the rescue.
