@@ -81,7 +81,7 @@ NSData *imageData = [imageWrapper regularFileContents];
 // image from the document
 UIImage * image = [UIImageimageWithData:imageData];
  
-returnYES;
+return YES;
 }  
 ```  
 This method will be called when we open a document. This method gives the contents of the document as the parameter and if we have stored content using NSFileWrapper in this document, then this method will return content in form of NSFileWrapper.
