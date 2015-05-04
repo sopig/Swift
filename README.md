@@ -41,6 +41,8 @@ _语言语法特性_
 func <#function name#>(<#parameters#>)(<#parameters#>)-> <#return type#>{
     <#statements#>
 }
+
+_info1_  
 class Curry: NSObject {
     // uncurried
     func add(a: Int, b: Int, c: Int) -> Int{
@@ -82,9 +84,13 @@ class Curry: NSObject {
         return a + b + c
     }
 }
+```
 
+_info2_  
 
 ```swift
+
+//*******************************************************************//  
   // 创建柯里化类的实例
         var curryInstance = Curry()
         
@@ -142,6 +148,53 @@ class Curry: NSObject {
         function()
         
         // 步骤都是一样，首先获取实例方法，在调用实例方法，实例方法怎么调用，就不需要在教了。
+```
+        
+_info3_  
+
+```swift
+class Currying: NSObject {
+    // 方法类型: () -> Void
+    func function(){
+        
+        println(__FUNCTION__)
+    }
+    // 方法类型: (Int) -> Void
+    func functionParam(a: Int){
+        println(__FUNCTION__)
+    }
+    // 方法类型: (Int, b: Int) -> Void
+    func functionParam(a: Int, b: Int){
+        println(__FUNCTION__)
+    }
+    
+    // 方法类型: (Int) -> () -> Void
+    func functionCur(a: Int)(){
+        println(__FUNCTION__)
+    }
+}
+```
+
+_info4_  
+
+```swift
+
+// 组合接口  
+// 为什么要定义接口，为了程序的扩展性，以后只需要在接口中添加对应的组合方法就好了。  
+protocol CombineUI
+{
+    func combine(top: () -> ())(bottom: () -> ())()
+}
+
+class UI: NSObject,CombineUI {
+    func combine(top: () -> ())(bottom: () -> ())() {
+        // 搭建顶部
+        top()
+        
+        // 搭建底部
+        bottom()
+    }
+}
 ```
 
 
