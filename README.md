@@ -42,7 +42,7 @@ func <#function name#>(<#parameters#>)(<#parameters#>)-> <#return type#>{
     <#statements#>
 }
 
-_info1_  
+_info1-1_  
 class Curry: NSObject {
     // uncurried
     func add(a: Int, b: Int, c: Int) -> Int{
@@ -86,11 +86,10 @@ class Curry: NSObject {
 }
 ```
 
-_info2_  
+_info1-2_  
 
 ```swift
 
-//*******************************************************************//  
   // 创建柯里化类的实例
         var curryInstance = Curry()
         
@@ -150,7 +149,7 @@ _info2_
         // 步骤都是一样，首先获取实例方法，在调用实例方法，实例方法怎么调用，就不需要在教了。
 ```
         
-_info3_  
+_info1-3_  
 
 ```swift
 class Currying: NSObject {
@@ -175,7 +174,7 @@ class Currying: NSObject {
 }
 ```
 
-_info4_  
+_info1-4_  
 
 ```swift
 
@@ -197,6 +196,62 @@ class UI: NSObject,CombineUI {
 }
 ```
 
+_info1-5 文字总结_  
+  柯里化(Currying),是函数式编程概念。也就是说把接受多个参数的方法变换成接受第一个参数的方法，  
+并且返回接受余下的参数并且返回结果的新方法。 swift中我们可以这样写出多个括号的方法：  
+```swift
+func addTwoNumbers(a:Int)(b:Int) ->Int {
+	return a+ b
+}
+```  
+  然后通过只传入第一个括号内的参数进行调用，这样将返回另一个方法：  
+```swift
+let addToEndValue = addTwoNumbers(4)   //addToEndValue是一个Int->Int  
+let result = addToEndValue(b:6)  //result = 10  
+```
+  柯里化是一种量产相似方法的好办法，可以通过柯里化一个方法模板来避免写出很多重复代码，也方便了今后的维护。  
+  举一个实际应用的例子，在swift中的selector只能使用字符串生成。这面临一个很严重的问题就是难以重构，并且无法在编译期间进行检查，这是十分危险的行为。但是target-action是Cocoa中非常重要得设计模式，无论如何我们都要安全使用的话，一种可能的解决方式就是利用方法的柯里化。  请看以下的解决思路  
+  ```swift
+  protocol TargetAction {
+  	func performAction()
+  } 
+  
+  struct TargetActionWrapper<T:AnyObject>:TargetAction {
+  	weak var target:T?
+  	let action:(T) -> () -> ()
+  	
+  	func performAction() -> () {
+  		if let t = target {
+  			action(t)()
+  		}
+  	}
+  }
+  
+  enum ControlEvent {
+  	case TouchUpInside
+  	case ValueChanged
+  	//...
+  }
+  
+  
+  class Control {
+  	var actions = [ControlEvent:TargetAction]()
+  	
+  	func setTarget<T:AnyObject>(target:T,action:(T)->()->(),controlEvent:ControlEvent) {
+  		actions[controlEvent] = TargetActionWrapper(target:target,action:action)
+  	}
+  	
+  	func removeTargetForControlEvent(controlEvent:ControlEvent) {
+  		actions[controlEvent] = nil
+  	}
+  	
+  	func performActionForControlEvent(controlEvent:ControlEvent) {
+  			actions[controlEvent]?.performAction()
+  	}
+  	
+  }
+  
+  ```
 
 ##LISENCE
       
