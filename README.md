@@ -9,28 +9,19 @@ Everything in swift
 
 _配置相关_
 > [Markdown详细说明](http://wowubuntu.com/markdown/)  
-
 > [Markdown编辑器Mou](http://25.io/mou/)
-
 > [Markdown详细语法](https://github.com/ddapps/Swift/blob/master/Markdown%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93.md)
-
 > [Swift开源项目总结](https://github.com/ddapps/Swift/blob/master/swift%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93.md)   
- 
 > [swift与OC混合编程——swift-mix-oc](./swift_OC_programMix.md)
- 
 > [swift_language](./swift_language_tips.md)
- 
 > [swift中的关键字](http://www.cnblogs.com/jacklandrin/p/3782831.html)  
-
 > [The Swift Programming Language 中文版](http://numbbbbb.gitbooks.io/-the-swift-programming-language-/content/index.html)  
-  
 > [Carthage使用](http://www.isaced.com/post-265.html)  
 
 _语言语法特性_  
 
 > [在Swift中应用Grand Central Dispatch(上)](http://www.cocoachina.com/swift/20150129/11057.html?utm_source=tuicool)  
 > [在Swift中应用Grand Central Dispatch(下)](http://www.cocoachina.com/swift/20150130/11054.html)  
-
 > [Swift 十二讲 前言和第一章(draft)](http://www.jianshu.com/p/f875bcb7e86c?utm_campaign=maleskine&utm_content=note&utm_medium=pc_author_hots&utm_source=recommendation)  
 > [Swift 十二讲 第二章 常量变量类型元组字符串和操作符](http://www.jianshu.com/p/b4a202d6c77b?utm_campaign=maleskine&utm_content=note&utm_medium=pc_author_hots&utm_source=recommendation)  
 > [Swift十二讲 第三章 数组字典函数和闭包](http://www.jianshu.com/p/94212e7f4030?utm_campaign=maleskine&utm_content=note&utm_medium=pc_author_hots&utm_source=recommendation)  
@@ -44,7 +35,7 @@ _语言语法特性_
 
 
 ##swift必备知识点
- **函数柯里化**  
+知识点1 -- **函数柯里化**  
 ```swift
 // 柯里化函数定义格式  
 func <#function name#>(<#parameters#>)(<#parameters#>)-> <#return type#>{
@@ -92,6 +83,64 @@ class Curry: NSObject {
     }
 }
 
+```swift
+  // 创建柯里化类的实例
+        var curryInstance = Curry()
+        
+        /*** 调用手动实现的柯里化函数 **/
+        var r: Int = curryInstance.add(10)(b: 20)(c: 30)
+        // 可能很多人都是第一次看这样的调用，感觉有点不可思议。
+        // 让我们回顾下OC创建对象 [[Person alloc] init]，这种写法应该都见过吧，就是一下发送了两个消息，alloc返回一个实例，再用实例调用init初始化,上面也是一样，一下调用多个函数，每次调用都会返回一个函数，然后再次调用这个返回的函数。
+        
+        /***** 柯里化函数分解调用 *****/
+        // 让我来帮你们拆解下，更容易看懂
+        // curryInstance.add(10): 调用一个接收参数a,并且返回一个接收参数b的函数,并且这个函数又返回一个接收参数c,返回值为Int类型的函数
+        // functionB: 一个接收参数b的函数,并且这个函数又返回一个接收参数c,返回值为Int类型的函数
+        var functionB = curryInstance.add(10)
+        
+        // functionB(b: 20):调用一个接收参数b的函数,并且这个函数又返回一个接收参数c,返回值为Int类型的函数
+        // functionC: 一个接收参数c,返回值为Int类型的函数
+        var functionC = functionB(b: 20)
+        
+        // functionC(c: 30): 调用一个接收参数c,返回值为Int类型的函数
+        // result: 函数的返回值
+        var res: Int = functionC(c: 30);
+        
+        // 这里会有疑问?，为什么不是调用curryInstance.add(a: 10)，而是curryInstance.add(10),functionB(b: 20),functionC(c: 30),怎么就有b,c,这是因为func add(a: Int) -> (b:Int) -> (c: Int) -> Int这个方法中a是第一个参数，默认是没有外部参数名，只有余下的参数才有外部参数名,b,c都属于余下的参数。
+        
+        /***** 系统的柯里化函数调用 *****/
+        var result: Int = curryInstance.addCur(10)(b: 20)(c: 30)
+        
+        /***** 系统的柯里化函数拆解调用 *****/
+        // curryInstance.addCur(10) : 调用一个接收参数a,并且返回一个接收参数b的函数,并且这个函数又返回一个接收参数c,返回值为Int类型的函数
+        // 注意：Swift是强类型语言，这里没有报错，说明调用系统柯里化函数返回的类型和手动的functionB类型一致
+        // functionB: 一个接收参数b的函数,并且这个函数又返回一个接收参数c,返回值为Int类型的函数
+        functionB = curryInstance.addCur(10)
+        
+        // functionC: 一个接收参数c,返回值为Int类型的函数
+        functionC = functionB(b: 20)
+        
+        // result: 函数的返回值
+        res = functionC(c: 30)
+        
+        // 打印 60，60，60说明手动实现的柯里化函数，和系统的一样。
+        println("\(r),\(res),\(result)")
+        
+        /************************************ 华丽的分割线 *********************************************/
+        /*************************** 实例方法的另一种调用方式（柯里化）************************************/
+        // 创建柯里化类的实例
+        var curryingInstance = Currying()
+        
+        // 调用function方法
+        Currying.function(curryingInstance)()
+        
+        // 拆解调用function方法
+        // 1.获取function方法
+        let function = Currying.function(curryingInstance)
+        // 2.调用function方法
+        function()
+        
+        // 步骤都是一样，首先获取实例方法，在调用实例方法，实例方法怎么调用，就不需要在教了。
 ```
 
 
