@@ -83,6 +83,7 @@ class Curry: NSObject {
     }
 }
 
+
 ```swift
   // 创建柯里化类的实例
         var curryInstance = Curry()
