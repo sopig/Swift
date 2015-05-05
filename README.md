@@ -35,7 +35,8 @@ _语言语法特性_
 
 
 ##swift必备知识点
-知识点1 --- **函数柯里化**  
+####知识点1   
+--- **函数柯里化**  
 ```swift
 // 柯里化函数定义格式  
 func <#function name#>(<#parameters#>)(<#parameters#>)-> <#return type#>{
@@ -253,7 +254,8 @@ let result = addToEndValue(b:6)  //result = 10
   
   ```
   
-  知识点2 --- **将protocol的方法声明为_mutating_**  
+  ####知识点2  
+  --- **将protocol的方法声明为_mutating_**  
   swift的`protocol`不仅可以被`class`类型实现，也适用于`struct`和`enum`.因为这个原因，我们在写给别人用的接口时需要多考虑是否使用`mutating`来修饰方法，比如定义为`mutating func myMethod()`。Swift的mutating关键字修饰方法是为了能够在该方法中修改`struct`或者是`enum`的变量，所以如果没有在接口方法里来实现这个接口的话，别人如果用`struct`或者`enum`来实现这个`protocol`的画，就不能在方法里改变自己的变量了。  比如下面的代码。
   ```swift
   protocol Vehicle {
@@ -273,7 +275,7 @@ let result = addToEndValue(b:6)  //result = 10
   }
   
   ```
-如果把
+ 如果把`protocol`定义中
 
 ##LISENCE
       
