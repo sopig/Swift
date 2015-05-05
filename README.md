@@ -1,6 +1,6 @@
 Everything in swift
 ==========
-- [ ]最近在完成SDWebImage的swift版本改写。
+- [x]最近在完成SDWebImage的swift版本改写。
 
 
 
