@@ -8,10 +8,10 @@ Everything in swift
 ##swift初识
 
 _配置相关_
-> [Markdown详细说明](http://wowubuntu.com/markdown/)  
-> [Markdown编辑器Mou](http://25.io/mou/)
-> [Markdown详细语法](https://github.com/ddapps/Swift/blob/master/Markdown%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93.md)
-> [Swift开源项目总结](https://github.com/ddapps/Swift/blob/master/swift%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93.md)   
+> [Markdown详细说明](http://wowubuntu.com/markdown/)    
+> [Markdown编辑器Mou](http://25.io/mou/)  
+> [Markdown详细语法](https://github.com/ddapps/Swift/blob/master/Markdown%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93.md)  
+> [Swift开源项目总结](https://github.com/ddapps/Swift/blob/master/swift%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93.md)     
 > [swift与OC混合编程——swift-mix-oc](./swift_OC_programMix.md)
 > [swift_language](./swift_language_tips.md)
 > [swift中的关键字](http://www.cnblogs.com/jacklandrin/p/3782831.html)  
@@ -255,7 +255,7 @@ let result = addToEndValue(b:6)  //result = 10
   ```  
   
 ####知识点2 
-  --- **将protocol的方法声明为_mutating_**  
+--- **将protocol的方法声明为_mutating_**  
   swift的`protocol`不仅可以被`class`类型实现，也适用于`struct`和`enum`.因为这个原因，我们在写给别人用的接口时需要多考虑是否使用`mutating`来修饰方法，比如定义为`mutating func myMethod()`。Swift的mutating关键字修饰方法是为了能够在该方法中修改`struct`或者是`enum`的变量，所以如果没有在接口方法里来实现这个接口的话，别人如果用`struct`或者`enum`来实现这个`protocol`的画，就不能在方法里改变自己的变量了。  比如下面的代码。
   ```swift
   protocol Vehicle {
@@ -281,4 +281,12 @@ let result = addToEndValue(b:6)  //result = 10
 
 ##LISENCE
       
+The MIT License (MIT)
 
+Copyright (c) 2015 Tolly Alamo [爱董铎]
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
