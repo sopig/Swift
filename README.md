@@ -1,8 +1,7 @@
 Everything in swift
 ==========
-```Swift 
-    最近在完成SDWebImage的swift版本改写。
-```
+- [ ]最近在完成SDWebImage的swift版本改写。
+
 
 
 ##swift初识
