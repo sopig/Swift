@@ -252,9 +252,9 @@ let result = addToEndValue(b:6)  //result = 10
   	
   }
   
-  ```
+  ```  
   
-  ####知识点2  
+####知识点2 
   --- **将protocol的方法声明为_mutating_**  
   swift的`protocol`不仅可以被`class`类型实现，也适用于`struct`和`enum`.因为这个原因，我们在写给别人用的接口时需要多考虑是否使用`mutating`来修饰方法，比如定义为`mutating func myMethod()`。Swift的mutating关键字修饰方法是为了能够在该方法中修改`struct`或者是`enum`的变量，所以如果没有在接口方法里来实现这个接口的话，别人如果用`struct`或者`enum`来实现这个`protocol`的画，就不能在方法里改变自己的变量了。  比如下面的代码。
   ```swift
@@ -275,7 +275,9 @@ let result = addToEndValue(b:6)  //result = 10
   }
   
   ```
- 如果把`protocol`定义中
+
+ 如果把`protocol` 定义中`mutating`关键字去掉的话，Mycar就没法编译，保持现有代码不变的话，会报错说没有实现接口。  
+ 另外在使用`class`来实现带有`mutating`的方法接口时，具体的实现方法的前面是不需要加`mutating`修饰的，因为`class`可以随意更改自己的成员变量。所以说在接口里用`mutating`修饰方法，对于`class`的实现完全透明，可以当做不存在的。
 
 ##LISENCE
       
