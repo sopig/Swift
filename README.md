@@ -1,6 +1,6 @@
 Everything in swift
 ==========
-- [x]最近在完成SDWebImage的swift版本改写。
+- [] 最近在完成SDWebImage的swift版本改写。
 
 
 
@@ -277,6 +277,46 @@ let result = addToEndValue(b:6)  //result = 10
 
  如果把`protocol` 定义中`mutating`关键字去掉的话，Mycar就没法编译，保持现有代码不变的话，会报错说没有实现接口。  
  另外在使用`class`来实现带有`mutating`的方法接口时，具体的实现方法的前面是不需要加`mutating`修饰的，因为`class`可以随意更改自己的成员变量。所以说在接口里用`mutating`修饰方法，对于`class`的实现完全透明，可以当做不存在的。
+ 
+####知识点3
+--  **多元组Turple**
+多元组基本上都是动态语言支持的特性。  
+比如交换输入，普通程序员亘古以来可能都是这么写的
+```swift
+func swapMe<T>(inout a:T,inout b:T) {
+	let temp = a
+	a = b 
+	b = temp 
+}
+```
+但是要使用多元组的话，我们可以是不是用额外的交换空间就完成交换 
+```swift
+	func swapMe<T>(inout a:T,inout b:T) {
+		(a,b) = (b,a)
+	}
+```
+另外一个特别常用的地方是错误处理。OC时代我们已经习惯了在需要错误处理的时候先做一个NSError的指针，然后将地址传到方法里面等待填充：
+
+```swift 
+	NSError *error = nil;
+	BOOL success = [NSFileManager defaultManager] moveItemAtPath@"/path/to/target" toPath:@"/path/to/detination" error:&error];
+	if (!success) {
+		NSLog(@"%@",error);
+	}
+	
+```
+
+现在我们新写库的时候可以直接考虑返回一个带有NSError的多元组，而不是去填充地址了：
+
+```swift
+	func doSomethingMightCauseError() -> (Bool,NSError ?) {
+		if success {
+			return (true,nil)
+		} else {
+			return (false,NSError(domain:"someErrorDomain",code:1,userInfo:nil))
+		}
+	}
+```
 
 ##LISENCE
       
