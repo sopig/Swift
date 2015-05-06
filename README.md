@@ -279,7 +279,7 @@ let result = addToEndValue(b:6)  //result = 10
  另外在使用`class`来实现带有`mutating`的方法接口时，具体的实现方法的前面是不需要加`mutating`修饰的，因为`class`可以随意更改自己的成员变量。所以说在接口里用`mutating`修饰方法，对于`class`的实现完全透明，可以当做不存在的。
  
 ####知识点3
---  **多元组Turple**
+--  **多元组Turple**  
 多元组基本上都是动态语言支持的特性。  
 比如交换输入，普通程序员亘古以来可能都是这么写的
 ```swift
@@ -317,6 +317,11 @@ func swapMe<T>(inout a:T,inout b:T) {
 		}
 	} 
 ```
+
+####知识点4  
+-- **@autoclosure 和 ??**  
+``@autoclosure`` 可以说是Apple的一个非常神奇的创造，因为这更多地像是在 ‘hack’这门语言。简单得说，@autoclosure做的事情就是把一句表达式自动地封装成一个闭包closure。这样有时候在语法上看起来就会非常漂亮。  TODO>>>
+
 
 ##LISENCE
       
