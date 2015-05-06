@@ -315,7 +315,7 @@ func swapMe<T>(inout a:T,inout b:T) {
 		} else {
 			return (false,NSError(domain:"someErrorDomain",code:1,userInfo:nil))
 		}
-	}
+	} 
 ```
 
 ##LISENCE
