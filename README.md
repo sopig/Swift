@@ -320,9 +320,139 @@ func swapMe<T>(inout a:T,inout b:T) {
 
 ####知识点4  
 -- **@autoclosure 和 ??**  
-``@autoclosure`` 可以说是Apple的一个非常神奇的创造，因为这更多地像是在 ‘hack’这门语言。简单得说，@autoclosure做的事情就是把一句表达式自动地封装成一个闭包closure。这样有时候在语法上看起来就会非常漂亮。  TODO>>>
+``@autoclosure`` 可以说是Apple的一个非常神奇的创造，因为这更多地像是在 ‘hack’这门语言。简单得说，@autoclosure做的事情就是把一句表达式自动地封装成一个闭包closure。这样有时候在语法上看起来就会非常漂亮。  
+比如我们有一个方法接受一个闭包，当闭包执行的结果为true的时候打印：
 
+```swift
+func logIfTrue(predicate:() ->Bool) {
+if predicate() {
+	println("True")
+}
+}
+```
+在调用的时候我们需要写这样的代码  
+```swift
+logIfTrue({return 2>1})
+```
+还可以更近一步，因为这个闭包是最后一个参数，所以可以使用尾随闭包(trailing closure)的方式把大括号拿出来，然后省略括号，变成 
+```swift
+	logIfTrue(2>1)
+```
+但是不管使用哪种方式，要么是书写起来十分麻烦，要么是表达上不太清晰，看起来都让人生气。于是@autoclosure登场了。我们可以改换方法参数，在参数名前面加上@autoclosure关键字：
+```swift
+	func logIfTrue(@autoclosure predicate:() -> Bool) {
+		if predicate() {
+			println("true")
+		}
+	}
+```
+这时候我们可以直接写
+```swift
+logIfTrue(2>1)
+```
+来进行调用了，swift将会把 2>1这个表达式自动转换为 ()-> Bool. 这样我们就得到了一个写法简单，表意清楚的式子。  
 
+在swift中，有一个非常有用的操作符，可以用来快速地对nil进行条件判断，那就是 _**??**_。这个操作符可以判断输入并在当左侧的值是非nil的optional值时返回其value，当左侧是nil时返回右侧的值，比如：
+```swift
+var level:Int?
+var startLevel = 1
+
+var currentLevel = level ?? startLevel
+```
+在这个例子中我们没有设置过level，因此最后startLevel被赋值给了currentLevel。如果我们充满好奇心地点进 ??的定义，可以看到 ?? 有两种版本：
+
+```swift
+func ??<T>(optional:T?,@autoclosure defaultValue:()->T?) ->T?
+
+func ??<T>(optional:T?,@autoclosure defaultValue:()->T) ->T
+```
+在这里我们的输入满足的是后者，虽然表面上看startLevel只是一个Int,但是其实在使用时他被自动封装成一个()->Int,有了这个提示，我们不妨来猜测一下??的实现吧:
+
+```swift
+func ??<T>(optional:T?,@autoclosure defaultValue:()->T?)->T {
+	switch optional {
+		case .Some(let value):
+			return value
+		case .None:
+			return defaultValue() 
+	}
+}
+```
+可能你会有疑问，为什么这里要使用autoclosure，直接接受T作为参数并返回不行么？这正是autoclosure的一个最值得称赞的地方。如果我们直接使用T，那么就意味着在??操作符真正取值之前，我们就必须准备好一个默认值，这个默认值的准备和计算是会消耗性能的。但是如果optional不是nil的话，我们是完全不需要这个默认值，而会直接返回optional解包后的值。这样一来，默认值就是白白准备了，这样的开销是完全可以避免的，方法是将默认值的计算推迟到optional判定为nil之后。  
+
+就这样，我们可以巧妙地绕过条件判断和强制转换，以很优雅的写法处理对optional及默认的取值了。**还有** @autoclosure并不支持带有输入参数的写法，也就是只有形如()->T的参数才能使用这个特性进行简化。另外因为调用者往往很容易忽视@autoclosure这个特性,所以在写接受@autoclosure的方法时还请特别小心，如果在容易产生歧义或者误解的时候，还是使用完整地闭包写法会比较好   
+
+####知识点5
+-- **Optional Chaining**
+使用Optional Chaining 可以让我们摆脱很多不必要的判断和取值，但是在使用的时候需要小心陷阱。  
+
+因为Optional Chaining是随时都可能提前返回nil的，所以使用Optional Chaining所得到的东西其实都是optional的。比如下面一段代码：
+
+```swift
+	class Toy {
+		let name :String
+		init(name:String) {
+			self.name = name
+		}
+	}
+	
+	class Pet {
+		var toy:Toy?
+	}
+	
+	class Child {
+		var pet:Pet?
+	}
+```
+在实际使用中，我们想要知道小明的宠物得玩具得名字得时候，可以通过下面得Optional Chaining拿到： 
+```swift
+let toyName = xiaoming.pet?.toy?.name
+```
+注意虽然我们最后访问的是name，并且在Toy的定义中name是被定义为一个确定的`String`而非`String？`的，但我们拿到的toyName其实还是一个String?的类型。这是由于子啊Optional Chaining中我们任意一个 ?. 的时候都可能遇到nil而提前返回，这个时候当然就只能拿到nil了。  
+在实际使用中，我们大多数情况下可能更希望使用Optional Binding来直接取值这样的代码
+
+```swift
+if let toyName = xiaoming.pet?.toy?.name {
+	
+}
+```
+可能单独拿出来看会很清楚，但是只要稍微和其他特性结合一下，事情会变得复杂起来。来看看下面的例子：
+
+```swift
+	extension Toy {
+		func play(){
+		
+		}
+	}
+```
+
+我们为Toy定义了一个扩展，以及一个玩玩具的方法play()。还是拿小明举例，要是有玩具的话就玩之：
+
+```swift
+xiaoming.pet?.toy?.play()
+```
+除了小明也许我们还有小红小李小张等等。。这种时候我们就需要抽象出一个闭包来使用。传入一个Child对象，如果小朋友有宠物并且宠物有玩具的话就去玩。于是你很有可能写出这样的代码：  
+_**错误代码**_
+```swift
+let playClosure = {(child:Child) -> () in child.pet?.toy?.play()}
+```
+你会发现这么表意清晰的代码居然无法编译！！  
+
+问题在于对于play()的调用上。定义的时候我们没有写play()的返回，这表示这个方法返回void(或者写作一对小括号，他们是等价的)。但是正如上面所说，经过Optional Chainging以后我们得到的是一个Optional的结果。也就是说，我们最后得到的应该是这样一个closure：
+```swift
+ let playClosure = {(child:Child) ->()? in 
+ child.pet?.toy?.play()
+ }
+```
+
+这样调用的返回将是一个()?  (或者写成void？更清楚一点)，虽然看起来有一点奇怪，但这就是事实。使用的时候我们可以通过Optional Binding来判定方法是否调用成功：
+```swift
+if let result:() = playClosure(xiaoming) {
+	
+} else {
+	
+}
+```
 ##LISENCE
       
 The MIT License (MIT)
