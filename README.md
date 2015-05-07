@@ -383,7 +383,7 @@ func ??<T>(optional:T?,@autoclosure defaultValue:()->T?)->T {
 就这样，我们可以巧妙地绕过条件判断和强制转换，以很优雅的写法处理对optional及默认的取值了。**还有** @autoclosure并不支持带有输入参数的写法，也就是只有形如()->T的参数才能使用这个特性进行简化。另外因为调用者往往很容易忽视@autoclosure这个特性,所以在写接受@autoclosure的方法时还请特别小心，如果在容易产生歧义或者误解的时候，还是使用完整地闭包写法会比较好   
 
 ####知识点5
--- **Optional Chaining**
+-- **Optional Chaining**  
 使用Optional Chaining 可以让我们摆脱很多不必要的判断和取值，但是在使用的时候需要小心陷阱。  
 
 因为Optional Chaining是随时都可能提前返回nil的，所以使用Optional Chaining所得到的东西其实都是optional的。比如下面一段代码：
