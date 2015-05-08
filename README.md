@@ -549,7 +549,14 @@ func incrementor(var variable:Int) ->Int {
 	return ++variable 
 }
 ```
-  
+正如上面的例子，我们将参数写作var后，通过调用返回的值是正确的，而luckyNumber还是保持了原来的值。这说明var只是在方法内部作用，而不直接影响输入的值。有写时候我们会希望在方法内部直接修改输入的值，这时候我们可以使用`inout` 来对参数进行修饰
+
+```swift
+func incrementor(inout variable:Int) ->Int {
+	return ++variable
+}
+```
+ 
 ##LISENCE
       
 The MIT License (MIT)
