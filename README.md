@@ -12,8 +12,8 @@ _配置相关_
 > [Markdown编辑器Mou](http://25.io/mou/)  
 > [Markdown详细语法](https://github.com/ddapps/Swift/blob/master/Markdown%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93.md)  
 > [Swift开源项目总结](https://github.com/ddapps/Swift/blob/master/swift%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE%E6%80%BB%E7%BB%93.md)     
-> [swift与OC混合编程——swift-mix-oc](./swift_OC_programMix.md)
-> [swift_language](./swift_language_tips.md)
+> [swift与OC混合编程——swift-mix-oc](./swift_OC_programMix.md)  
+> [swift_language](./swift_language_tips.md)  
 > [swift中的关键字](http://www.cnblogs.com/jacklandrin/p/3782831.html)  
 > [The Swift Programming Language 中文版](http://numbbbbb.gitbooks.io/-the-swift-programming-language-/content/index.html)  
 > [Carthage使用](http://www.isaced.com/post-265.html)  
@@ -36,7 +36,7 @@ _语言语法特性_
 
 ##swift必备知识点
 ####知识点1   
---- **函数柯里化**  
+--- _**函数柯里化**_  
 ```swift
 // 柯里化函数定义格式  
 func <#function name#>(<#parameters#>)(<#parameters#>)-> <#return type#>{
@@ -255,7 +255,7 @@ let result = addToEndValue(b:6)  //result = 10
   ```  
   
 ####知识点2  
---- **将protocol的方法声明为_mutating_**  
+--- _**将protocol的方法声明为_mutating_**_  
   swift的`protocol`不仅可以被`class`类型实现，也适用于`struct`和`enum`.因为这个原因，我们在写给别人用的接口时需要多考虑是否使用`mutating`来修饰方法，比如定义为`mutating func myMethod()`。Swift的mutating关键字修饰方法是为了能够在该方法中修改`struct`或者是`enum`的变量，所以如果没有在接口方法里来实现这个接口的话，别人如果用`struct`或者`enum`来实现这个`protocol`的画，就不能在方法里改变自己的变量了。  比如下面的代码。
   ```swift
   protocol Vehicle {
@@ -280,7 +280,7 @@ let result = addToEndValue(b:6)  //result = 10
  另外在使用`class`来实现带有`mutating`的方法接口时，具体的实现方法的前面是不需要加`mutating`修饰的，因为`class`可以随意更改自己的成员变量。所以说在接口里用`mutating`修饰方法，对于`class`的实现完全透明，可以当做不存在的。
  
 ####知识点3
---  **多元组Turple**  
+--  _**多元组Turple**_  
 多元组基本上都是动态语言支持的特性。  
 比如交换输入，普通程序员亘古以来可能都是这么写的
 ```swift
@@ -320,7 +320,7 @@ func swapMe<T>(inout a:T,inout b:T) {
 ```
 
 ####知识点4  
--- **@autoclosure 和 ??**  
+-- _**@autoclosure 和 ??**_  
 ``@autoclosure`` 可以说是Apple的一个非常神奇的创造，因为这更多地像是在 ‘hack’这门语言。简单得说，@autoclosure做的事情就是把一句表达式自动地封装成一个闭包closure。这样有时候在语法上看起来就会非常漂亮。  
 比如我们有一个方法接受一个闭包，当闭包执行的结果为true的时候打印：
 
@@ -384,7 +384,7 @@ func ??<T>(optional:T?,@autoclosure defaultValue:()->T?)->T {
 就这样，我们可以巧妙地绕过条件判断和强制转换，以很优雅的写法处理对optional及默认的取值了。**还有** @autoclosure并不支持带有输入参数的写法，也就是只有形如()->T的参数才能使用这个特性进行简化。另外因为调用者往往很容易忽视@autoclosure这个特性,所以在写接受@autoclosure的方法时还请特别小心，如果在容易产生歧义或者误解的时候，还是使用完整地闭包写法会比较好   
 
 ####知识点5
--- **Optional Chaining**  
+-- _**Optional Chaining**_  
 使用Optional Chaining 可以让我们摆脱很多不必要的判断和取值，但是在使用的时候需要小心陷阱。  
 
 因为Optional Chaining是随时都可能提前返回nil的，所以使用Optional Chaining所得到的东西其实都是optional的。比如下面一段代码：
@@ -456,7 +456,7 @@ if let result:() = playClosure(xiaoming) {
 ```
 
 ####知识点6
---**操作符**  
+-- _**操作符**_  
 
 与Objective-C不同，swift支持重载操作符这样的特性，最常见的使用方式可能就是定义一些简便的计算了。比如我们需要一个表示二维向量的数据结构：
 
@@ -552,10 +552,27 @@ func incrementor(var variable:Int) ->Int {
 正如上面的例子，我们将参数写作var后，通过调用返回的值是正确的，而luckyNumber还是保持了原来的值。这说明var只是在方法内部作用，而不直接影响输入的值。有写时候我们会希望在方法内部直接修改输入的值，这时候我们可以使用`inout` 来对参数进行修饰
 
 ```swift
-func incrementor(inout variable:Int) ->Int {
-	return ++variable
+func incrementor(inout variable:Int)  {
+	 ++variable
 }
 ```
+
+最后，要注意的时参数得修饰是具有传递限制的，就是说对于跨越层级的调用，我们需要保证统一参数的修饰是统一的。举个例子，比如我们想扩展一下上面的方法，实现一个可以累加任意数字的 +N器 的话，可以写成这样：
+
+```swift
+func makeIncrementor(addNumber:Int) ->((inout Int) ->()) {
+	func incrementor(inout variable:Int) -> () {
+		variable += addNumber
+	}
+	return incrementor
+}
+```
+外层的makeIncrementor的返回里也需要才参数的类型前面明确指出修饰词，已符合内部的定义，否则将无法编译通过。 
+
+####知识点8
+-- _**方法参数名称省略**_  
+
+- [ ] **TODO** 
  
 ##LISENCE
       
