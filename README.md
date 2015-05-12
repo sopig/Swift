@@ -1,4 +1,4 @@
-![icon](http://ww1.sinaimg.cn/mw690/759d343bgw1es1ky0fi0ej20hs08pt8u.jpg)
+![icon](./resource/beatVoice.jpg)
 ==========
 #Everything in Swift
 ```
