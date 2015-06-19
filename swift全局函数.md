@@ -76,6 +76,7 @@ arr
 //化简，
 reduce(arr, 1000, { return $0 + $1 })
 reduce(arr, 1, { return $0 * $1 })
+
 ```
 
 
